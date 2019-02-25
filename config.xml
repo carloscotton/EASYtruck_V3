@@ -2,7 +2,7 @@
 <widget id="com.easytruck.trackproj" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>EASYtruck</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        App para seguimiento de proyectos dentro del sistema de EASYtruck.com.gt, permite hacer trazado de rutas de proyectos registrados en el sistema.
     </description>
     <author email="support@phonegap.com" href="http://phonegap.com">
         PhoneGap Team
