@@ -52,7 +52,7 @@
                 <p>Para poder hacer seguimiento de un proyecto, debes poseer el código único del proyecto, este código puedes obtenerlo en la información detallada del proyecto en: <a href="http://www.easytruck.com.gt"> EASYtruck</a></p>
             <p>Ingresa el ID del Proyecto:</p>
             <form>
-            ET-<input id="proyid" name="proyid" maxlength="5" size="5" />
+            <input id="proyid" name="proyid" />
                 <input type="submit" value="HACER TRACK" onclick="javascript:track_et();" />
             </form>
                 </div>
@@ -90,7 +90,7 @@
             }
         };
         var hproy = document.getElementById('hideproy').value;
-        xmlhttp.open("GET", "http://www.easytruck.com.gt/app/traza.php?pet=" + hproy + "&la=" + position.coords.latitude + "&lo=" + position.coords.longitude, true);
+        xmlhttp.open("GET", "https://www.easytruck.com.gt/app/traza.php?pet=" + hproy + "&la=" + position.coords.latitude + "&lo=" + position.coords.longitude, true);
         xmlhttp.send();
         
         //FINALIZA LLAMADA A BASE DE DATOS
