@@ -53,7 +53,7 @@
             <p>Ingresa el ID del Proyecto:</p>
             <form>
             <input id="proyid" name="proyid"  style="font-size: 24px;" maxlength="5" size="5" />
-            <br /><br />    <input type="submit" value="RASTREO" style="font-size: 14px;" onclick="javascript:track_et();" />
+            <br /><br />  <img src="img/ok_on.png" onclick="javascript:track_et();" alt="INICIAR RASTREO" class="botones blink" />
             </form>
                 </div>
             <div id="miboton"></div>
@@ -98,25 +98,40 @@
     function onError_et(error) {
         //no hace nada, para evitar las ventanas emergentes
         //esto se activa SOLAMENTE SI NO HAY CAMBIO DE POSICION EN 3 segundos.
-        //alert('code: '    + error.code    + '\n' +
-          //    'message: ' + error.message + '\n');
+        alert('code: '    + error.code    + '\n' +
+           'message: ' + error.message + '\n');
     }
 
     // Options: throw an error if no update is received every 30 seconds.
     //
+                function finalizartrack() {
+                   var elproyid = document.getElementById('hideproy').value;
+document.getElementById('datosproy').innerHTML = '<h2>FINALIZADO : <span style="color: #FF0000;">' + elproyid + '</span></h2><input type="hidden" id="hideproy" name="hideproy" value="' + elproyid + '" />';
+    document.getElementById('miboton').innerHTML ='<br />AGREGAR PRUEBA DE ENTREGA [POD] <br /><a href="https://www.easytruck.com.gt/index.php?option=com_etpod&idproy='+elproyid+'" target="_blank" ><img src="img/pod_on.png" class="botones" /></a><br /><br />RASTREAR OTRO PROYECTO <br /><img src="img/reiniciar_on.png" class="botones blink" /><br />';
+      document.getElementById('appstatus').innerHTML ='<br />CONECTANDO CON SISTEMA <strong>EASYTRUCK</strong>, POR FAVOR ESPERE.';
+}
+        
 function track_et(){
     var elproyid = document.getElementById('proyid').value;
             //alert("INICIANDO TRACKING DE: " + elproyid);
-    var watchID = navigator.geolocation.watchPosition(onSuccess_et, onError_et, { timeout: 90000 });
-            alert("EN SEGUIMIENTO DE: " + elproyid);
+    if (elproyid == "") {
+        alert ("Debe ingresar un ID de proyecto");
+    } else {
+    var watchID = navigator.geolocation.watchPosition(onSuccess_et, onError_et, { timeout: 3000 });
+          //  alert("EN SEGUIMIENTO DE: " + elproyid);
     document.getElementById('datosproy').innerHTML = '<h2>REPORTANDO : <span style="color: #FF0000;">' + elproyid + '</span></h2><input type="hidden" id="hideproy" name="hideproy" value="' + elproyid + '" />';
-    document.getElementById('miboton').innerHTML ='<br /><input type="submit" value="FINALIZAR RASTREO" onclick="javascript:recargarpage();" /><br /><p><a href="https://www.easytruck.com.gt/index.php?option=com_etpod&idproy='+elproyid+'" target="_blank">AGREGAR PRUEBA DE ENTREGA [POD]</a></p>';
+    document.getElementById('miboton').innerHTML ='<br />FINALIZAR RASTREOa <img src="img/finalizar_on.png" onclick="javascript:finalizartrack();" class="botones" /><br />';
       document.getElementById('appstatus').innerHTML ='<br />CONECTANDO CON SISTEMA <strong>EASYTRUCK</strong>, POR FAVOR ESPERE.';
         }
+}
+
         function recargarpage() {
   location.reload();
 }
     </script>
+    
+    
+    
 </body>
 
 </html>
