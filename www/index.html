@@ -71,7 +71,6 @@
     //   the current GPS coordinates
     //
     
-        
     function onSuccess_et(position) {
         var element = document.getElementById('geolocation');
         var posicionnueva= 'Timestamp: ' + position.timestamp  + '<br /> Latitude: '  + position.coords.latitude + '<br /> Longitude: ' + position.coords.longitude + '<br /> <hr />';
@@ -81,7 +80,8 @@
                 var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-               document.getElementById("appstatus").innerHTML = this.responseText; 
+               //document.getElementById("appstatus").innerHTML = this.responseText;
+                document.getElementById("appstatus").innerHTML = '<img src="img/generapunto.gif" class="botones blink" /><br /> <strong> RASTREANDO </strong>';
                //ESTADOS DE LA BASE DE DATOS          
             }
         };
