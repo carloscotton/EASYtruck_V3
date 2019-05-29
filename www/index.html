@@ -120,7 +120,7 @@ function track_et(){
     var watchID = navigator.geolocation.watchPosition(onSuccess_et, onError_et, { timeout: 3000 });
           //  alert("EN SEGUIMIENTO DE: " + elproyid);
     document.getElementById('datosproy').innerHTML = '<h2>REPORTANDO : <span style="color: #FF0000;">' + elproyid + '</span></h2><input type="hidden" id="hideproy" name="hideproy" value="' + elproyid + '" />';
-    document.getElementById('miboton').innerHTML ='<br />FINALIZAR RASTREOa <img src="img/finalizar_on.png" onclick="javascript:finalizartrack();" class="botones" /><br />';
+    document.getElementById('miboton').innerHTML ='<br /><a href="https://www.easytruck.com.gt/mapas/index.php?pet='+elproyid+'" target="_blank"><img src="img/mapa_on.png" class="botones" /></a><br />VER MAPA DE RUTA ACTUAL<br /><img src="img/finalizar_on.png" onclick="javascript:finalizartrack();" class="botones" />FINALIZAR RASTREO';
       document.getElementById('appstatus').innerHTML ='<br />CONECTANDO CON SISTEMA <strong>EASYTRUCK</strong>, POR FAVOR ESPERE.';
         }
 }
