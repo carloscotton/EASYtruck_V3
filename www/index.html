@@ -105,11 +105,12 @@
     // Options: throw an error if no update is received every 30 seconds.
     //
                 function finalizartrack() {
-                    navigator.geolocation.clearWatch(watchID);
+                   // navigator.geolocation.clearWatch(watchID);
                    var elproyid = document.getElementById('hideproy').value;
 document.getElementById('datosproy').innerHTML = '<h2>FINALIZADO : <span style="color: #FF0000;">' + elproyid + '</span></h2><input type="hidden" id="hideproy" name="hideproy" value="' + elproyid + '" />';
     document.getElementById('miboton').innerHTML ='<br />AGREGAR PRUEBA DE ENTREGA [POD] <br /><a href="https://www.easytruck.com.gt/index.php?option=com_etpod&idproy='+elproyid+'" target="_blank" ><img src="img/pod_on.png" class="botones" /></a><br /><br />RASTREAR OTRO PROYECTO <br /><img src="img/reiniciar_on.png"  onclick="javascript:recargarpage();" class="botones blink" /><br />';
       document.getElementById('appstatus').innerHTML ='...';
+                    navigator.geolocation.clearWatch(watchID);
 }
         
 function track_et(){
