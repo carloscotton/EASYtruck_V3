@@ -47,6 +47,7 @@
         <div id="deviceready">
             <p class="event listening">Connecting to Device</p>
             <p class="event received">EasyTruckAPP V 0.2</p>
+            <div id="login_et"></div>
             <div id="datosproy">
                 <h3>Instrucciones:</h3>
                 <p>Para poder hacer seguimiento de un proyecto, debes poseer el código único del proyecto, este código puedes obtenerlo en la información detallada del proyecto en: <a href="https://www.easytruck.com.gt"> EASYtruck</a></p>
@@ -71,17 +72,33 @@
     //   the current GPS coordinates
     //
     
+        
+        //VALIDA USUARIO Y CONTRASEÑA
+
+  if(typeof(Storage) !== "undefined") {
+    if (localStorage.datos_et) {
+      //alert("datos YA ESCRITOS "+localStorage.datos_et);
+    } else {
+      //alert("datos NO ESCRITOS");
+        document.getElementById("datosproy").innerHTML = "";
+    //localStorage.datos_et = "MIUSUARIO:ETETET";
+       var acceso_et = '<h3>Instrucciones:</h3><p>Para poder hacer seguimiento de un proyecto, debes poseer una cuenta en <a href="https://www.easytruck.com.gt">EASYtruck</a></p><p>Si ya posee una cuenta, por favor ingrese sus datos:</p><form>U: <input id="user_et" name="user_et"  style="font-size: 24px;" maxlength="25" size="5" /><br /> C: <input id="pass_et" name="pass_et" type="password"  style="font-size: 24px;" maxlength="25" size="5" /><br /><br />  <img src="img/ok_on.png" onclick="javascript:iniciasesion_et();" alt="INICIAR SESION" class="botones blink" /></form>'; 
+        document.getElementById("login_et").innerHTML = acceso_et;
+    }
+    
+  } else {
+    //document.getElementById("result").innerHTML = "Lo sentimos su dispositivo no permite almacenar datos de sesión...";
+  }
+        // FIN VALIDA USUARIO Y CONTRASENA
     function onSuccess_et(position) {
         var element = document.getElementById('geolocation');
         var posicionnueva= 'Timestamp: ' + position.timestamp  + '<br /> Latitude: '  + position.coords.latitude + '<br /> Longitude: ' + position.coords.longitude + '<br /> <hr />';
-        
-
-        //inicia llamada de PHP A BASE DE DATOS
-                var xmlhttp = new XMLHttpRequest();
+         //inicia llamada de PHP A BASE DE DATOS
+        var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-               //document.getElementById("appstatus").innerHTML = this.responseText;
-                document.getElementById("appstatus").innerHTML = '<img src="img/generapunto.gif" class="botones blink" /><br /> <strong> RASTREANDO </strong>';
+              // document.getElementById("appstatus").innerHTML = this.responseText;
+                 document.getElementById("appstatus").innerHTML = '<img src="img/generapunto.gif" /><br /> Haciendo Tracking';
                //ESTADOS DE LA BASE DE DATOS          
             }
         };
@@ -104,13 +121,12 @@
 
     // Options: throw an error if no update is received every 30 seconds.
     //
-                function finalizartrack() {
-                   // navigator.geolocation.clearWatch(watchID);
-                   var elproyid = document.getElementById('hideproy').value;
+function finalizartrack() {
+    navigator.geolocation.clearWatch(watchID);
+   var elproyid = document.getElementById('hideproy').value;
 document.getElementById('datosproy').innerHTML = '<h2>FINALIZADO : <span style="color: #FF0000;">' + elproyid + '</span></h2><input type="hidden" id="hideproy" name="hideproy" value="' + elproyid + '" />';
-    document.getElementById('miboton').innerHTML ='<br />AGREGAR PRUEBA DE ENTREGA [POD] <br /><a href="https://www.easytruck.com.gt/index.php?option=com_etpod&idproy='+elproyid+'" target="_blank" ><img src="img/pod_on.png" class="botones" /></a><br /><br />RASTREAR OTRO PROYECTO <br /><img src="img/reiniciar_on.png"  onclick="javascript:recargarpage();" class="botones blink" /><br />';
+    document.getElementById('miboton').innerHTML ='<br />AGREGAR PRUEBA DE ENTREGA [POD] <br /><a href="https://www.easytruck.com.gt/index.php?option=com_etpod&idproy='+elproyid+'" target="_blank" ><img src="img/pod_on.png" class="botones" /></a><br /><br />RASTREAR OTRO PROYECTO <br /><img src="img/reiniciar_on.png" class="botones blink" /><br />';
       document.getElementById('appstatus').innerHTML ='...';
-                    navigator.geolocation.clearWatch(watchID);
 }
         
 function track_et(){
@@ -122,10 +138,45 @@ function track_et(){
     var watchID = navigator.geolocation.watchPosition(onSuccess_et, onError_et, { timeout: 90000 });
           //  alert("EN SEGUIMIENTO DE: " + elproyid);
     document.getElementById('datosproy').innerHTML = '<h2>REPORTANDO : <span style="color: #FF0000;">' + elproyid + '</span></h2><input type="hidden" id="hideproy" name="hideproy" value="' + elproyid + '" />';
-    document.getElementById('miboton').innerHTML ='<br /><a href="https://www.easytruck.com.gt/mapas/index.php?pet='+elproyid+'" target="_blank"><img src="img/mapa_on.png" class="botones" /></a><br />VER MAPA DE RUTA ACTUAL<br /><img src="img/finalizar_on.png" onclick="javascript:finalizartrack();" class="botones" /><br />FINALIZAR RASTREO';
+    document.getElementById('miboton').innerHTML ='<br />FINALIZAR RASTREO <img src="img/finalizar_on.png" onclick="javascript:finalizartrack();" class="botones" /><br />';
       document.getElementById('appstatus').innerHTML ='<br />CONECTANDO CON SISTEMA <strong>EASYTRUCK</strong>, POR FAVOR ESPERE.';
         }
 }
+        
+function iniciasesion_et(){
+    var elusuario = document.getElementById('user_et').value;
+    var elpass = document.getElementById('pass_et').value;
+            //alert("INICIANDO TRACKING DE: " + elproyid);
+    if ((elusuario == "") || (elpass == "")) {
+        alert ("Debe ingresar sus datos de acceso de EASYtruck");
+    } else {
+
+                 //inicia llamada de PHP A BASE DE DATOS
+        var xmlhttp2 = new XMLHttpRequest();
+        xmlhttp2.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                alert ("aqui llega");
+              var respondio = this.responseText;
+            //     document.getElementById("appstatus").innerHTML = '<img src="img/generapunto.gif" /><br /> Haciendo Tracking';
+               //ESTADOS DE LA BASE DE DATOS       
+                alert("respuesta de servidor: " + respondio);
+            }
+        };
+        var hproy = document.getElementById('hideproy').value;
+//        xmlhttp.open("GET", "https://www.easytruck.com.gt/app/loginet.php?elusuario=" + elusuario + "&elpass=" + elpass, true);
+        xmlhttp2.open("GET", "https://www.easytruck.com.gt/app/loginet.php?elusuario=garbocorp&elpass=64R802018", true);
+
+        xmlhttp2.send();
+        
+        //FINALIZA LLAMADA A BASE DE DATOS
+        //escribe datos de último punto leido y lo acumula en los otros.
+      // element.innerHTML = element.innerHTML +  posicionnueva;
+        
+        
+    
+    }
+}    
+        
 
         function recargarpage() {
   location.reload();
