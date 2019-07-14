@@ -76,8 +76,8 @@
                 var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-               //document.getElementById("appstatus").innerHTML = this.responseText;
-                document.getElementById("appstatus").innerHTML = '<img src="img/generapunto.gif" class="botones blink" /><br /> <strong> RASTREANDO </strong>';
+               document.getElementById("appstatus").innerHTML = this.responseText;
+                //document.getElementById("appstatus").innerHTML = '<img src="img/generapunto.gif" class="botones blink" /><br /> <strong> RASTREANDO </strong>';
                //ESTADOS DE LA BASE DE DATOS          
             }
         };
