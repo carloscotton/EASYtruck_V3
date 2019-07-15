@@ -76,10 +76,26 @@
                 var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-               document.getElementById("appstatus").innerHTML = this.responseText;
-               //document.getElementById("appstatus").innerHTML = '<img src="img/generapunto.gif" class="botones blink" /><br /> <strong> RASTREANDO </strong>';
-               //ESTADOS DE LA BASE DE DATOS          
-            }
+                var mirespuesta = this.responseText;
+                /*DIFERENCIADOR DE RESPUESTAS    Solamente hay tres respuestas posibles, CODIGO NO EXISTE, CODIGO EXISTE PERO NO ESTÁ LISTO, CODIGO EXISTE Y ESTÁ LISTO*/
+                //document.getElementById("appstatus").innerHTML = '<img src="img/generapunto.gif" class="botones blink" /><br /> <strong> RASTREANDO </strong>';
+               //ESTADOS DE LA BASE DE DATOS
+                if (mirespuesta == 'OK'){
+                document.getElementById("appstatus").innerHTML = '<img src="img/generapunto.gif" class="botones blink" /><br /> <strong> RASTREANDO </strong>';
+
+                }
+                if (mirespuesta == 'OKNR'){
+                document.getElementById("appstatus").innerHTML = 'EL PROYECTO INGRESADO AÚN NO ESTÁ EN PROCESO DE TRASLADO O YA SE ENCUENTRA FINALIZADO<br />RASTREAR OTRO PROYECTO <br /><img src="img/reiniciar_on.png"  onclick="javascript:recargarpage();" class="botones blink" /><br />';
+
+                }
+                if (mirespuesta == 'NOK'){
+                document.getElementById("appstatus").innerHTML = 'EL CÓDIGO DE PROYECTO INGRESADO NO EXISTE EN EL SISTEMA POR FAVOR VERIFICARLO<br />REINGRESAR CÓDIGO:<br /><img src="img/reiniciar_on.png"  onclick="javascript:recargarpage();" class="botones blink" /><br />';
+
+                }
+                
+                
+                
+                }
         };
         var hproy = document.getElementById('hideproy').value;
         xmlhttp.open("GET", "https://www.easytruck.com.gt/app/traza.php?pet=" + hproy + "&la=" + position.coords.latitude + "&lo=" + position.coords.longitude, true);
